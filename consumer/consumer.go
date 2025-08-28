@@ -166,7 +166,7 @@ func (c *Consumer) processOne(m kafka.Message) {
 }
 
 func (c *Consumer) handlePoison(m kafka.Message) {
-	if c.dlq != nil && c.dlq.Enabled() {
+	if c.dlq.Enabled() {
 		if err := c.dlq.Send(c.ctx, m); err != nil {
 			log.Printf("[consumer] DLQ failed, skipping but NOT requeuing (commit anyway to avoid stall): %v", err)
 		}

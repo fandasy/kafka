@@ -43,10 +43,6 @@ func (d *DLQ) Enabled() bool {
 }
 
 func (d *DLQ) Send(appCtx context.Context, src kafka.Message) error {
-	if !d.Enabled() {
-		return errors.New("dlq disabled")
-	}
-
 	msg := kafka.Message{
 		Key:   src.Key,
 		Value: src.Value,
